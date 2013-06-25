@@ -8,7 +8,38 @@ $(function(){
   map.addLayer(lg);
 
 
+  var jitter = function() {
+    var offset = Math.random() / 100;
+    console.log(offset);
+    var a = Math.random() < 0.5 ? true : false;
+    var b = Math.random() < 0.5 ? true : false;
+
+    var numbers = data.features[0].geometry.coordinates[0][0];
+    for (var i = numbers.length - 1; i >= 0; i--) {
+      if(a) {
+        if(b){
+          numbers[i][0] += offset;
+          numbers[i][1] += offset;
+        }else {
+          numbers[i][0] += offset;
+          numbers[i][1] -= offset;
+        }
+      }else {
+        if(b){
+          numbers[i][0] -= offset;
+          numbers[i][1] -= offset;
+        }else {
+          numbers[i][0] -= offset;
+          numbers[i][1] += offset;
+        }
+      }
+    }
+    console.log(numbers);
+  };
+
+
   var addLayer = function() {
+    jitter();
     // Event handling
     var selectedLayer;
     var selectParcel = function(event) {
